@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Math Calculator</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/main.css') }}"
+    />
+
+    <link
+      href="https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="shortcut icon"
+      href="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Python-logo-notext.svg/1200px-Python-logo-notext.svg.png"
+      type="image/x-icon"
+    />
+  </head>
+
+  <body>
+    <header>
+      <nav class="navbar">
+        <button class="logo-wrapper">
+          <a class="logo" href="{{ url_for('home') }}">
+            <i class="bx bx-calculator"></i>
+            <h1>Calculadora Matemática</h1>
+          </a>
+        </button>
+
+        <ul class="navbar-nav">
+          <!-- For loop logic of jinja template -->
+          <select>
+            <option disabled>Seleccione una operación</option>
+            {%for i in range(0, len)%}
+            <!-- <button
+            onclick={
+              window.location.href='{{ url_for( 'about') }}';
+            }
+            > -->
+            <option>
+              <a class="nav-link" href="{{ url_for('about') }}">
+                {{Operaciones[i]}}
+              </a>
+            </option>
+
+            <!-- </button> -->
+            {%endfor%}
+          </select>
+
+          <a class="nav-link" href="{{ url_for('home') }}">
+            <li class="nav-item active">Home</li>
+          </a>
+          <a class="nav-link" href="about">
+            <li class="nav-item">About</li>
+          </a>
+        </ul>
+      </nav>
+
+      <div class="wrapper">{% block content %} {% endblock%}</div>
+    </header>
+
+    <script src="{{url_for('static', filename='js/main.js')}}"></script>
+  </body>
+</html>

@@ -1,0 +1,43 @@
+from flask import Flask, render_template
+
+app = Flask(__name__, template_folder='./src')
+
+# Creating simple Routes 
+@app.route('/test')
+def test():
+    return "Home Page"
+
+@app.route('/test/subroute/')
+def about_test():
+    return "Subroute Page"
+
+@app.route('/first')
+@app.route('/test/second/')
+def nestedroutes():
+    return "Mani routes for one endpoit Page"
+
+@app.route('/saludo/<username>')
+def saludar (username):
+    return '¡Hola %s, bienvenid@!' & username
+
+@app.route('/cuadrado/<float:num>')
+def areacuadrado (num):
+    resp = num * num
+    return 'El área del cuadrado es: %f' & resp
+
+@app.route('/user/<userId>')
+def userdetail (userid = None):
+    return render_template('pages/user.html', userId=userid)
+
+# Routes to Render Something
+@app.route('/')
+def home():
+    return render_template("pages/home.html")
+
+@app.route('/about', strict_slashes=False)
+def about():
+    return render_template("pages/about.html")
+
+# Make sure this we are executing this file
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port='5000', debug=True) # Default port: 5000
